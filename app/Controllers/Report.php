@@ -32,6 +32,7 @@ class Report extends BaseController
         $sheet->setCellValue('C1', "Email");
         $sheet->setCellValue('D1', "Phone");
         $sheet->setCellValue('E1', "Course");
+        $sheet->setCellValue('E1', "Xếp loại");
 
         $count = 2;
         foreach ($result as $row) {
@@ -40,6 +41,7 @@ class Report extends BaseController
             $sheet->setCellValue('C' . $count, $row['email']);
             $sheet->setCellValue('D' . $count, $row['phone']);
             $sheet->setCellValue('E' . $count, $row['course']);
+            $sheet->setCellValue('F' . $count, $row['category_title']);
             $count++;
         }
         $writer = new Xlsx($spreadsheet);

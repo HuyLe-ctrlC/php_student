@@ -6,17 +6,33 @@ use CodeIgniter\Model;
 
 class CommonModel extends Model
 {
-    public function SelectQuery($table, $where = array())
+    public function SelectQuery($table, $where = NULL)
     {
         $builder = $this->db->table($table);
         $builder->select("*");
+        $builder->join('category', 'student.category=category.category_id', 'left');
         if ($where) {
-            $builder->where($where);
+            $builder->like('fullname', trim($where));
+            $builder->orLike('email', trim($where));
+            $builder->orLike('phone', trim($where));
+            $builder->orLike('course', trim($where));
         }
         $result = $builder->get();
         // echo $this->db->getLastQuery();
         return $result->getResultArray();
     }
+    // public function SelectQuery($table, $where = array())
+    // {
+    //     $builder = $this->db->table($table);
+    //     $builder->select("*");
+    //     $builder->join('category', 'student.category=category.category_id', 'left');
+    //     if ($where) {
+    //         $builder->where($where);
+    //     }
+    //     $result = $builder->get();
+    //     // echo $this->db->getLastQuery();
+    //     return $result->getResultArray();
+    // }
 
     public function insertValue($table, $data)
     {

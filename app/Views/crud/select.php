@@ -45,6 +45,8 @@
                                 <th>Email</th>
                                 <th>Điện thoại</th>
                                 <th>Khóa học</th>
+                                <th>Xếp loại</th>
+                                <th>Ngày cập nhật</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -60,6 +62,8 @@
                                         <td><?php echo $row['email'] ?></td>
                                         <td><?php echo $row['phone'] ?></td>
                                         <td><?php echo $row['course'] ?></td>
+                                        <td><?php echo $row['category_title'] ? $row['category_title'] : 'Chưa xếp loại' ?></td>
+                                        <td><?php echo $row['updated_date'] ?  date("d-m-Y H:i:s", substr($row['updated_date'], 0, 10)) : date("d-m-Y H:i:s", substr($row['creation_date'], 0, 10)) ?></td>
                                         <td class="text-center">
                                             <a href="<?= base_url('crud/update/' . $row['id']) ?>" class="btn btn-primary rounded mx-1">Sửa</a>
                                             <a href="<?= base_url('delete/' . $row['id']) ?>" class="btn btn-danger rounded mx-1">Xóa</a>

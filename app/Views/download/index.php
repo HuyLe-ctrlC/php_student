@@ -15,6 +15,7 @@
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Course</th>
+                <th scope="col">Xếp loại</th>
             </tr>
         </thead>
         <tbody>
@@ -29,6 +30,7 @@
                         <td><?php echo $row['email'] ?></td>
                         <td><?php echo $row['phone'] ?></td>
                         <td><?php echo $row['course'] ?></td>
+                        <td><?php echo $row['category_title'] ?></td>
                     </tr>
             <?php $i++;
                 }

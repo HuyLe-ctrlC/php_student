@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CommonModel;
+use DateTime;
 
 class CRUD extends BaseController
 {
@@ -12,10 +13,12 @@ class CRUD extends BaseController
         $model = new CommonModel();
         if ($this->request->getGet('q')) {
             $query = $this->request->getGet('q');
-            $result = $model->SelectQuery('student', array('fullname' => $query));
-            if (empty($result)) {
-                $result = $model->SelectQuery('student', array('email' => $query));
-            }
+            $result = $model->SelectQuery('student', $query);
+
+            // $result = $model->SelectQuery('student', array('fullname' => $query));
+            // if (empty($result)) {
+            //     $result = $model->SelectQuery('student', array('email' => $query));
+            // }
             $data = [
                 'title' => 'CRUD',
                 'result' => $result,
@@ -33,7 +36,7 @@ class CRUD extends BaseController
     }
     public function insert($id = null)
     {
-
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         // print_r($_POST['agent_name']);
         // echo "<br>";
         // print_r($this->request->getPost('agent_name'));
@@ -65,14 +68,16 @@ class CRUD extends BaseController
                 $email = $this->request->getPost('email');
                 $phone = $this->request->getPost('phone');
                 $course = $this->request->getPost('course');
-                $date = date('y-m-d H:i:s');
+                // $date = date('y-m-d H:i:s');
+
+                $date = time();
                 //insert Data
                 $insert = [
                     'fullname' => $name,
                     'email' => $email,
                     'phone' => $phone,
                     'course' => $course,
-                    'creation_date' => $date,
+                    $id ? 'updated_date' : 'creation_date' => $date,
                 ];
                 if ($id == null) {
                     $model->insertValue('student', $insert);
@@ -102,5 +107,9 @@ class CRUD extends BaseController
                 return redirect()->to(base_url('crud'));
             }
         }
+    }
+    public function getCategory()
+    {
+        $model = new CommonModel();
     }
 }
